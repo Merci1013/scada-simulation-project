@@ -1,16 +1,19 @@
-version: '3.8'
-
 services:
   mongodb:
     image: mongo:7
     container_name: scada-mongodb
-    restart: always
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_DATABASE: scada_simulation
     volumes:
       - mongodb_data:/data/db
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: scada-mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
 
 volumes:
   mongodb_data:
