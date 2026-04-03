@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MqttModule } from './mqtt/mqtt.module';
+import { SensorsModule } from './sensors/sensor.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { MqttModule } from './mqtt/mqtt.module';
     }),
     MongooseModule.forRoot(process.env.MONGO_URI as string),
     MqttModule,
+    SensorsModule,
   ],
   controllers: [],
   providers: [],

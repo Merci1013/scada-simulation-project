@@ -1,9 +1,12 @@
-// backend/src/mqtt/mqtt.service.ts
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import * as mqtt from 'mqtt';
+import { SensorsService } from 'src/sensors/sensor.service';
+
 
 @Injectable()
 export class MqttService implements OnModuleInit {
+  constructor(private readonly sensorsService: SensorsService) {}
+
   onModuleInit() {
     const brokerUrl = process.env.MQTT_BROKER_URL || 'mqtt://localhost:1883';
     const client = mqtt.connect(brokerUrl);
@@ -21,8 +24,13 @@ export class MqttService implements OnModuleInit {
       });
     });
 
-    client.on('message', (topic: string, message: Buffer) => {
-      console.log(`[MQTT] Message received on ${topic}: ${message.toString()}`);
+    client.on('message', async (topic: string, message: Buffer) => {
+      const value = message.toString();
+
+      console.log(`[MQTT] Message received on ${topic}: ${value}`);
+
+      await this.sensorsService.createReading(topic, value);
+      console.log('[MongoDB] Sensor reading saved');
     });
 
     client.on('error', (error) => {
