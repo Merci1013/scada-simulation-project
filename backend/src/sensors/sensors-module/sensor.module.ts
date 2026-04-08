@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SensorReading, SensorReadingSchema } from './schema/sensor-reading.shema';
-import { SensorsService } from './sensor.service';
+import { SensorsService } from '../sensor-service/sensor.service';
+import { SensorReading, SensorReadingSchema } from '../schema/sensor-reading.shema';
+
 
 
 @Module({

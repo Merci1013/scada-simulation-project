@@ -1,6 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import * as mqtt from 'mqtt';
-import { SensorsService } from 'src/sensors/sensor.service';
+import { SensorsService } from 'src/sensors/sensor-service/sensor.service';
+import { MqttTopics } from 'src/common/enums/mqtt-topics.enum';
 
 
 @Injectable()
@@ -25,13 +26,21 @@ export class MqttService implements OnModuleInit {
     });
 
     client.on('message', async (topic: string, message: Buffer) => {
-      const value = message.toString();
-
-      console.log(`[MQTT] Message received on ${topic}: ${value}`);
-
-      await this.sensorsService.createReading(topic, value);
-      console.log('[MongoDB] Sensor reading saved');
-    });
+      try {
+        const payloadMqtt = JSON.parse(message.toString());
+        console.log('[MQTT] Payload reçu :', payloadMqtt);
+        await this.sensorsService.createReading({
+            topic: topic as MqttTopics,
+            sensorId: payloadMqtt.sensorId,
+            value: Number(payloadMqtt.value),
+            unit: payloadMqtt.unit,
+          });
+        console.log('[MongoDB] Sensor reading saved');
+         } catch (error) {
+        console.error('[MQTT] Message processing error:', error);
+        }
+        });
+   
 
     client.on('error', (error) => {
       console.error('[MQTT] Client error:', error);

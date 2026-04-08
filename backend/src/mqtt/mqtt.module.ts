@@ -1,7 +1,7 @@
-// backend/src/mqtt/mqtt.module.ts
 import { Module } from '@nestjs/common';
 import { MqttService } from './mqt.service';
-import { SensorsModule } from 'src/sensors/sensor.module';
+import { SensorsModule } from 'src/sensors/sensors-module/sensor.module';
+
 
 
 @Module({
