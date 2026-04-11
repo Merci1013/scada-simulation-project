@@ -1,0 +1,21 @@
+<section class="login-page">
+  <h1>Connexion</h1>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="username">Nom d'utilisateur</label>
+      <input id="username" type="text" formControlName="username" />
+    </div>
+
+    <div>
+      <label for="password">Mot de passe</label>
+      <input id="password" type="password" formControlName="password" />
+    </div>
+
+    <button type="submit">Se connecter</button>
+  </form>
+
+  @if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+  }
+</section>

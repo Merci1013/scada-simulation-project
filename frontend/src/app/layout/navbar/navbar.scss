@@ -1,0 +1,22 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar__brand a,
+.navbar__links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 1rem;
+}
+
+.active {
+  font-weight: 700;
+}

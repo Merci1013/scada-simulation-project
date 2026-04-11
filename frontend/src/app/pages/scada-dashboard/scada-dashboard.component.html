@@ -1,0 +1,93 @@
+<div class="page">
+  <h1>SCADA Security Dashboard</h1>
+
+  <div class="feedback success" *ngIf="message">{{ message }}</div>
+  <div class="feedback error" *ngIf="error">{{ error }}</div>
+
+  <section class="card">
+    <h2>Connexion</h2>
+
+    <input [(ngModel)]="loginForm.username" placeholder="Nom d'utilisateur" />
+    <input [(ngModel)]="loginForm.password" type="password" placeholder="Mot de passe" />
+
+    <button (click)="login()">Se connecter</button>
+    <button *ngIf="currentRole" (click)="logout()">Se déconnecter</button>
+
+    <p *ngIf="currentRole">
+      Connectée en tant que <strong>{{ currentUsername }}</strong> ({{ currentRole }})
+    </p>
+  </section>
+
+  <section class="card" *ngIf="currentRole === 'admin'">
+    <h2>Créer un opérateur</h2>
+
+    <input [(ngModel)]="registerForm.username" placeholder="Nom d'utilisateur" />
+    <input [(ngModel)]="registerForm.password" type="password" placeholder="Mot de passe" />
+
+    <select [(ngModel)]="registerForm.role">
+      <option value="operator">Operator</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <button (click)="register()">Créer l'utilisateur</button>
+  </section>
+
+  <section class="card" *ngIf="currentRole === 'admin'">
+    <h2>Créer un capteur</h2>
+
+    <input [(ngModel)]="sensorForm.name" placeholder="Nom" />
+    <input [(ngModel)]="sensorForm.sensorId" placeholder="Sensor ID" />
+    <input [(ngModel)]="sensorForm.topic" placeholder="Topic MQTT" />
+    <input [(ngModel)]="sensorForm.type" placeholder="Type" />
+    <input [(ngModel)]="sensorForm.unit" placeholder="Unité" />
+    <input [(ngModel)]="sensorForm.minValue" type="number" placeholder="Min" />
+    <input [(ngModel)]="sensorForm.maxValue" type="number" placeholder="Max" />
+    <input [(ngModel)]="sensorForm.location" placeholder="Location" />
+    <input [(ngModel)]="sensorForm.reportingIntervalMinutes" type="number" placeholder="Intervalle" />
+
+    <label class="checkbox">
+      <input [(ngModel)]="sensorForm.isActive" type="checkbox" />
+      Actif
+    </label>
+
+    <button (click)="createSensor()">Créer le capteur</button>
+  </section>
+
+  <section class="card" *ngIf="currentRole === 'admin' || currentRole === 'operator'">
+    <h2>Envoyer une lecture</h2>
+
+    <input [(ngModel)]="readingForm.sensorId" placeholder="Sensor ID" />
+    <input [(ngModel)]="readingForm.topic" placeholder="Topic MQTT" />
+    <input [(ngModel)]="readingForm.value" type="number" placeholder="Valeur" />
+    <input [(ngModel)]="readingForm.unit" placeholder="Unité" />
+
+    <button (click)="createReading()">Envoyer la lecture</button>
+  </section>
+
+  <section class="card" *ngIf="currentRole === 'admin'">
+    <h2>Événements de sécurité</h2>
+
+    <button (click)="loadSecurityEvents()">Rafraîchir</button>
+
+    <div *ngFor="let event of securityEvents" class="event">
+      <div><strong>Type :</strong> {{ event.type }}</div>
+      <div><strong>Sévérité :</strong> {{ event.severity }}</div>
+      <div><strong>Message :</strong> {{ event.message }}</div>
+      <div *ngIf="event.sensorId"><strong>Sensor ID :</strong> {{ event.sensorId }}</div>
+      <div *ngIf="event.topic"><strong>Topic :</strong> {{ event.topic }}</div>
+      <div *ngIf="event.value !== undefined"><strong>Valeur :</strong> {{ event.value }}</div>
+    </div>
+  </section>
+
+  <section class="card" *ngIf="currentRole">
+    <h2>Capteurs</h2>
+
+    <div *ngFor="let sensor of sensors" class="event">
+      <div><strong>Nom :</strong> {{ sensor.name }}</div>
+      <div><strong>Sensor ID :</strong> {{ sensor.sensorId }}</div>
+      <div><strong>Topic :</strong> {{ sensor.topic }}</div>
+      <div><strong>Type :</strong> {{ sensor.type }}</div>
+      <div><strong>Actif :</strong> {{ sensor.isActive }}</div>
+    </div>
+  </section>
+</div>

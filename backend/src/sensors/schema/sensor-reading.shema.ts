@@ -1,25 +1,26 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { MqttTopics } from 'src/common/enums/mqtt-topics.enum';
+import { HydratedDocument } from 'mongoose';
+import { MqttTopics } from 'src/common/enums/mqtt/mqtt-topics.enum';
 
-export type SensorReadingDocument = SensorReading & Document;
+export type SensorReadingDocument = HydratedDocument<SensorReading>;
 
 @Schema({ timestamps: true })
 export class SensorReading {
-   @Prop({
+  @Prop({
     required: true,
     enum: Object.values(MqttTopics),
   })
   topic: MqttTopics;
 
-  @Prop({ required: true })
+  @Prop({ required: true, trim: true })
   sensorId: string;
 
   @Prop({ required: true })
   value: number;
 
-  @Prop({ required: true })
+  @Prop({ required: true, trim: true })
   unit: string;
 }
 
-export const SensorReadingSchema = SchemaFactory.createForClass(SensorReading);
+export const SensorReadingSchema =
+  SchemaFactory.createForClass(SensorReading);

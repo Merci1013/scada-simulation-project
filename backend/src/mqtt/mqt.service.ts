@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import * as mqtt from 'mqtt';
 import { SensorsService } from 'src/sensors/sensor-service/sensor.service';
-import { MqttTopics } from 'src/common/enums/mqtt-topics.enum';
+import { MqttTopics } from 'src/common/enums/mqtt/mqtt-topics.enum';
 
 
 @Injectable()

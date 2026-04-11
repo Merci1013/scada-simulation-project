@@ -1,0 +1,86 @@
+<section class="create-sensor-page">
+  <h1>Créer un capteur</h1>
+
+  <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="sensorId">Sensor ID</label>
+      <input
+        id="sensorId"
+        type="text"
+        formControlName="sensorId"
+        placeholder="sensor-001"
+      />
+
+      @if (
+        sensorForm.get('sensorId')?.invalid &&
+        sensorForm.get('sensorId')?.touched
+      ) {
+        <small>Le sensorId est obligatoire.</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Capteur température salle serveur"
+      />
+
+      @if (
+        sensorForm.get('name')?.invalid &&
+        sensorForm.get('name')?.touched
+      ) {
+        <small>Le nom est obligatoire.</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="topic">Topic MQTT</label>
+      <input
+        id="topic"
+        type="text"
+        formControlName="topic"
+        placeholder="scada/temperature"
+      />
+
+      @if (
+        sensorForm.get('topic')?.invalid &&
+        sensorForm.get('topic')?.touched
+      ) {
+        <small>Le topic est obligatoire.</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="location">Emplacement</label>
+      <input
+        id="location"
+        type="text"
+        formControlName="location"
+        placeholder="Salle serveur"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="unit">Unité</label>
+      <input
+        id="unit"
+        type="text"
+        formControlName="unit"
+        placeholder="°C"
+      />
+    </div>
+
+    <button type="submit">Créer le capteur</button>
+  </form>
+
+  @if (successMessage) {
+    <p class="success-message">{{ successMessage }}</p>
+  }
+
+  @if (errorMessage) {
+    <p class="error-message">{{ errorMessage }}</p>
+  }
+</section>

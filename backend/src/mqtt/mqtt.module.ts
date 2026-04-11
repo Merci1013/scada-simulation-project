@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MqttService } from './mqt.service';
-import { SensorsModule } from 'src/sensors/sensors-module/sensor.module';
+import { SensorsModule } from 'src/sensors/sensor-module/sensor.module';
 
 
 

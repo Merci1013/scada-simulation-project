@@ -1,0 +1,19 @@
+<section>
+  <h1>SCADA Dashboard</h1>
+
+  @if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+  }
+
+  @if (sensors.length > 0) {
+    <ul>
+      @for (sensor of sensors; track sensor.sensorId) {
+        <li>
+          <strong>{{ sensor.name }}</strong> — {{ sensor.sensorId }} — {{ sensor.topic }}
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>Aucun capteur trouvé.</p>
+  }
+</section>
