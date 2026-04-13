@@ -29,7 +29,7 @@ export class SensorsService {
 
   async createSensor(data: CreateSensorDto) {
     const existingSensor = await this.sensorConfigModel
-      .findOne({ sensorId: data.sensorId })
+      .findOne({ sensorId: data.sensorId})
       .exec();
 
     if (existingSensor) {
@@ -56,8 +56,7 @@ export class SensorsService {
   async createReading(data: CreateSensorReadingDto) {
     const sensor = await this.sensorConfigModel
       .findOne({
-        sensorId: data.sensorId,
-        topic: data.topic,
+        sensorId: data.sensorId
       })
       .exec();
 
@@ -105,5 +104,11 @@ export class SensorsService {
       .find({ sensorId })
       .sort({ createdAt: -1 })
       .exec();
+  }
+  async findLatestReadingBySensorId(sensorId: string) {
+  return this.sensorReadingModel
+    .findOne({ sensorId })
+    .sort({ createdAt: -1 })
+    .exec();
   }
 }

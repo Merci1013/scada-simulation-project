@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
@@ -15,8 +15,15 @@ export class SensorsService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = `${environment.apiUrl}/sensors`;
 
-  createSensor(payload: CreateSensorRequest): Observable<Sensor> {
-    return this.http.post<Sensor>(this.baseUrl, payload);
+    createSensor(payload: CreateSensorRequest): Observable<Sensor> {
+    const token = localStorage.getItem('access_token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    console.log('TOKEN CREATE SENSOR =', token);
+    console.log('AUTH HEADER =', `Bearer ${token}`);
+    return this.http.post<Sensor>(this.baseUrl, payload, { headers });
   }
 
   findAllSensors(): Observable<Sensor[]> {

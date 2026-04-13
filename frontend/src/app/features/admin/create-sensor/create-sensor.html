@@ -1,86 +1,70 @@
-<section class="create-sensor-page">
-  <h1>Créer un capteur</h1>
+<div class="create-sensor-page">
+  <h2>Créer un capteur</h2>
 
-  <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="sensorId">Sensor ID</label>
-      <input
-        id="sensorId"
-        type="text"
-        formControlName="sensorId"
-        placeholder="sensor-001"
-      />
+  <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()" class="sensor-form">
+    <label>
+      Sensor ID
+      <input type="text" formControlName="sensorId" />
+    </label>
 
-      @if (
-        sensorForm.get('sensorId')?.invalid &&
-        sensorForm.get('sensorId')?.touched
-      ) {
-        <small>Le sensorId est obligatoire.</small>
-      }
-    </div>
+    <label>
+      Nom
+      <input type="text" formControlName="name" />
+    </label>
 
-    <div class="form-group">
-      <label for="name">Nom</label>
-      <input
-        id="name"
-        type="text"
-        formControlName="name"
-        placeholder="Capteur température salle serveur"
-      />
+    <label>
+      Topic
+      <select formControlName="topic">
+        <option value="scada/temperature">scada/temperature</option>
+        <option value="scada/humidity">scada/humidity</option>
+        <option value="scada/pressure">scada/pressure</option>
+        <option value="scada/level">scada/level</option>
+      </select>
+    </label>
 
-      @if (
-        sensorForm.get('name')?.invalid &&
-        sensorForm.get('name')?.touched
-      ) {
-        <small>Le nom est obligatoire.</small>
-      }
-    </div>
+    <label>
+      Type
+      <input type="text" formControlName="type" />
+    </label>
 
-    <div class="form-group">
-      <label for="topic">Topic MQTT</label>
-      <input
-        id="topic"
-        type="text"
-        formControlName="topic"
-        placeholder="scada/temperature"
-      />
+    <label>
+      Unité
+      <input type="text" formControlName="unit" />
+    </label>
 
-      @if (
-        sensorForm.get('topic')?.invalid &&
-        sensorForm.get('topic')?.touched
-      ) {
-        <small>Le topic est obligatoire.</small>
-      }
-    </div>
+    <label>
+      Valeur minimale
+      <input type="number" formControlName="minValue" />
+    </label>
 
-    <div class="form-group">
-      <label for="location">Emplacement</label>
-      <input
-        id="location"
-        type="text"
-        formControlName="location"
-        placeholder="Salle serveur"
-      />
-    </div>
+    <label>
+      Valeur maximale
+      <input type="number" formControlName="maxValue" />
+    </label>
 
-    <div class="form-group">
-      <label for="unit">Unité</label>
-      <input
-        id="unit"
-        type="text"
-        formControlName="unit"
-        placeholder="°C"
-      />
-    </div>
+    <label>
+      Emplacement
+      <input type="text" formControlName="location" />
+    </label>
+
+    <label>
+      Capteur actif
+      <input type="checkbox" formControlName="isActive" />
+    </label>
+
+    <label>
+      Intervalle de reporting (minutes)
+      <input type="number" formControlName="reportingIntervalMinutes" />
+    </label>
 
     <button type="submit">Créer le capteur</button>
   </form>
 
   @if (successMessage) {
-    <p class="success-message">{{ successMessage }}</p>
+    <p>{{ successMessage }}</p>
   }
 
   @if (errorMessage) {
-    <p class="error-message">{{ errorMessage }}</p>
+    <p>{{ errorMessage }}</p>
   }
-</section>
+</div>

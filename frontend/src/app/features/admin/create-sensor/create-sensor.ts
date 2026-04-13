@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SensorsService } from '../../../core/services/sensor.service';
 
-
 @Component({
   selector: 'app-create-sensor',
   standalone: true,
@@ -20,9 +19,14 @@ export class CreateSensor {
   sensorForm = this.fb.group({
     sensorId: ['', Validators.required],
     name: ['', Validators.required],
-    topic: ['', Validators.required],
+    topic: ['scada/temperature', Validators.required],
+    type: ['temperature', Validators.required],
+    unit: ['C', Validators.required],
+    minValue: [18, Validators.required],
+    maxValue: [30, Validators.required],
     location: [''],
-    unit: [''],
+    isActive: [true, Validators.required],
+    reportingIntervalMinutes: [5, [Validators.required, Validators.min(0), Validators.max(1440)]],
   });
 
   onSubmit(): void {
@@ -31,20 +35,39 @@ export class CreateSensor {
       return;
     }
 
-    this.sensorsService.createSensor(this.sensorForm.getRawValue() as {
-      sensorId: string;
-      name: string;
-      topic: string;
-      location?: string;
-      unit?: string;
+    const raw = this.sensorForm.getRawValue();
+
+    this.sensorsService.createSensor({
+      sensorId: raw.sensorId ?? '',
+      name: raw.name ?? '',
+      topic: raw.topic ?? '',
+      type: raw.type ?? '',
+      unit: raw.unit ?? '',
+      minValue: Number(raw.minValue),
+      maxValue: Number(raw.maxValue),
+      location: raw.location ?? '',
+      isActive: Boolean(raw.isActive),
+      reportingIntervalMinutes: Number(raw.reportingIntervalMinutes),
     }).subscribe({
       next: () => {
         this.successMessage = 'Capteur créé avec succès';
         this.errorMessage = '';
-        this.sensorForm.reset();
+        this.sensorForm.reset({
+          sensorId: '',
+          name: '',
+          topic: 'scada/temperature',
+          type: 'temperature',
+          unit: 'C',
+          minValue: 18,
+          maxValue: 30,
+          location: '',
+          isActive: true,
+          reportingIntervalMinutes: 5,
+        });
       },
-      error: () => {
-        this.errorMessage = 'Erreur lors de la création du capteur';
+      error: (error) => {
+        this.errorMessage =
+          error?.error?.message || 'Erreur lors de la création du capteur';
         this.successMessage = '';
       },
     });

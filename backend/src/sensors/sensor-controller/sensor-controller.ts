@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import {Body,Controller,Get,Param,Post,UseGuards,Req} from '@nestjs/common';
 import { SensorsService } from '../sensor-service/sensor.service';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
@@ -13,10 +6,11 @@ import { Roles } from 'src/auth/roles/roles.decorator';
 import { CreateSensorDto } from '../sensor-dto/sensor-creating-dto';
 import { CreateSensorReadingDto } from '../sensor-dto/sensor-reading-dto';
 
-
 @Controller('sensors')
 export class SensorsController {
   constructor(private readonly sensorsService: SensorsService) {}
+
+
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
@@ -29,12 +23,6 @@ export class SensorsController {
   @Get()
   findAllSensors() {
     return this.sensorsService.findAllSensors();
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(':sensorId')
-  findSensorBySensorId(@Param('sensorId') sensorId: string) {
-    return this.sensorsService.findSensorBySensorId(sensorId);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -64,4 +52,15 @@ export class SensorsController {
   findReadingsBySensorId(@Param('sensorId') sensorId: string) {
     return this.sensorsService.findReadingsBySensorId(sensorId);
   }
+  @Get(':sensorId/latest-reading')
+  findLatestReadingBySensorId(@Param('sensorId') sensorId: string) {
+  return this.sensorsService.findLatestReadingBySensorId(sensorId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':sensorId')
+  findSensorBySensorId(@Param('sensorId') sensorId: string) {
+    return this.sensorsService.findSensorBySensorId(sensorId);
+  }
+ 
 }

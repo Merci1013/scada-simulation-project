@@ -29,15 +29,30 @@ export class LoginPage {
     }
 
     this.authService.login(this.loginForm.getRawValue() as {
-      username: string;
-      password: string;
-    }).subscribe({
-      next: () => {
-        this.router.navigate(['/scada-dashboard']);
-      },
-      error: () => {
-        this.errorMessage = 'Identifiants invalides';
-      },
-    });
+  username: string;
+  password: string;
+}).subscribe({
+next: (response) => {
+  console.log('LOGIN RESPONSE =', response);
+
+  const role = response.role;
+  console.log('ROLE =', role);
+
+  if (role === 'admin') {
+    this.router.navigate(['/admin']);
+    return;
+  }
+
+  if (role === 'operator') {
+    this.router.navigate(['/scada-dashboard']);
+    return;
+  }
+
+  this.router.navigate(['/']);
+},
+  error: () => {
+    this.errorMessage = 'Identifiants invalides';
+  },
+});
   }
 }

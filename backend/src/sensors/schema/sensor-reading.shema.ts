@@ -12,7 +12,7 @@ export class SensorReading {
   })
   topic: MqttTopics;
 
-  @Prop({ required: true, trim: true })
+  @Prop({ required: true,unique :true, trim: true })
   sensorId: string;
 
   @Prop({ required: true })

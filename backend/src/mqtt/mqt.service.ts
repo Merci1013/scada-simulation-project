@@ -3,7 +3,6 @@ import * as mqtt from 'mqtt';
 import { SensorsService } from 'src/sensors/sensor-service/sensor.service';
 import { MqttTopics } from 'src/common/enums/mqtt/mqtt-topics.enum';
 
-
 @Injectable()
 export class MqttService implements OnModuleInit {
   constructor(private readonly sensorsService: SensorsService) {}
@@ -15,13 +14,13 @@ export class MqttService implements OnModuleInit {
     client.on('connect', () => {
       console.log(`[MQTT] Connected to broker: ${brokerUrl}`);
 
-      client.subscribe('scada/temperature', (err) => {
+      client.subscribe('scada/#', (err) => {
         if (err) {
           console.error('[MQTT] Subscription error:', err);
           return;
         }
 
-        console.log('[MQTT] Subscribed to topic: scada/temperature');
+        console.log('[MQTT] Subscribed to topic: scada/#');
       });
     });
 
@@ -29,18 +28,19 @@ export class MqttService implements OnModuleInit {
       try {
         const payloadMqtt = JSON.parse(message.toString());
         console.log('[MQTT] Payload reçu :', payloadMqtt);
+
         await this.sensorsService.createReading({
-            topic: topic as MqttTopics,
-            sensorId: payloadMqtt.sensorId,
-            value: Number(payloadMqtt.value),
-            unit: payloadMqtt.unit,
-          });
-        console.log('[MongoDB] Sensor reading saved');
-         } catch (error) {
-        console.error('[MQTT] Message processing error:', error);
-        }
+          topic: topic as MqttTopics,
+          sensorId: payloadMqtt.sensorId,
+          value: Number(payloadMqtt.value),
+          unit: payloadMqtt.unit,
         });
-   
+
+        console.log('[MongoDB] Sensor reading saved');
+      } catch (error) {
+        console.error('[MQTT] Message processing error:', error);
+      }
+    });
 
     client.on('error', (error) => {
       console.error('[MQTT] Client error:', error);

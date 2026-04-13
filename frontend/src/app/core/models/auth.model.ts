@@ -11,4 +11,5 @@ export interface RegisterRequest {
 
 export interface AuthResponse {
   access_token: string;
+  role: string;
 }

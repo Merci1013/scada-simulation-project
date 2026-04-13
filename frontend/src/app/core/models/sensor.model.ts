@@ -19,6 +19,11 @@ export interface CreateSensorRequest {
   sensorId: string;
   name: string;
   topic: string;
+  type: string;
+  unit: string;
+  minValue: number;
+  maxValue: number;
   location?: string;
-  unit?: string;
+  isActive: boolean;
+  reportingIntervalMinutes: number;
 }

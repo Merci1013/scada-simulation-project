@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-page',
+  selector: 'app-home-page',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './admin-dashboard.html',
-  styleUrl: './admin-dashboard.scss',
+  templateUrl: './home-page.html',
+  styleUrl: './home-page.scss',
 })
-export class AdminPage {}
+export class HomePage {}

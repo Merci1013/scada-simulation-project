@@ -1,4 +1,4 @@
-import { IsIn, IsString, MinLength } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 
 export class RegisterDto {
   @IsString()
@@ -8,7 +8,4 @@ export class RegisterDto {
   @MinLength(8)
   password: string;
 
-  @IsString()
-  @IsIn(['admin', 'operator'])
-  role: 'admin' | 'operator';
 }

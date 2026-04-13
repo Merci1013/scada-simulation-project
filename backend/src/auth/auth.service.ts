@@ -37,6 +37,7 @@ export class AuthService {
 
     return {
       access_token: await this.jwtService.signAsync(payload),
+      role: user.role,
     };
   }
   async register(registerDto: RegisterDto) {
@@ -53,7 +54,7 @@ export class AuthService {
         const user = await this.usersService.createUser({
             username: registerDto.username,
             passwordHash,
-            role: registerDto.role,
+            role: 'operator' as const,
         });
 
         return {
