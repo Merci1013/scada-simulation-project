@@ -1,19 +1,38 @@
-<section>
-  <h1>SCADA Dashboard</h1>
+<section class="dashboard-page">
+  <div class="dashboard-header">
+    <p class="eyebrow">Supervision</p>
+    <h1>SCADA Dashboard</h1>
+    <p>Consultez l’état et les informations des capteurs enregistrés.</p>
+  </div>
 
   @if (errorMessage) {
-    <p>{{ errorMessage }}</p>
+    <p class="error-banner">{{ errorMessage }}</p>
   }
 
   @if (sensors.length > 0) {
-    <ul>
+    <div class="sensor-grid">
       @for (sensor of sensors; track sensor.sensorId) {
-        <li>
-          <strong>{{ sensor.name }}</strong> — {{ sensor.sensorId }} — {{ sensor.topic }}
-        </li>
+        <article class="sensor-card">
+          <div class="sensor-card__top">
+            <h2>{{ sensor.name }}</h2>
+            <span class="sensor-status" [class.inactive]="!sensor.isActive">
+              {{ sensor.isActive ? 'Actif' : 'Inactif' }}
+            </span>
+          </div>
+
+          <div class="sensor-meta">
+            <p><strong>ID :</strong> {{ sensor.sensorId }}</p>
+            <p><strong>Topic :</strong> {{ sensor.topic }}</p>
+            <p><strong>Unité :</strong> {{ sensor.unit }}</p>
+            <p><strong>Emplacement :</strong> {{ sensor.location }}</p>
+          </div>
+        </article>
       }
-    </ul>
+    </div>
   } @else {
-    <p>Aucun capteur trouvé.</p>
+    <div class="empty-state">
+      <h2>Aucun capteur trouvé</h2>
+      <p>Ajoutez un capteur depuis le panneau d’administration pour commencer.</p>
+    </div>
   }
 </section>

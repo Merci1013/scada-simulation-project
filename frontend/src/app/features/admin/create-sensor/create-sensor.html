@@ -1,70 +1,81 @@
-<div class="create-sensor-page">
-  <h2>Créer un capteur</h2>
+<section class="create-sensor-page">
+  <div class="create-sensor-card">
+    <div class="create-sensor-card__header">
+      <p class="eyebrow">Configuration</p>
+      <h2>Créer un capteur</h2>
+      <p>
+        Ajoutez un nouveau capteur avec ses paramètres de supervision et de
+        communication.
+      </p>
+    </div>
 
-  <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()" class="sensor-form">
-    <label>
-      Sensor ID
-      <input type="text" formControlName="sensorId" />
-    </label>
+    <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()" class="sensor-form">
+      <div class="form-grid">
+        <label class="form-field">
+          <span>Sensor ID</span>
+          <input type="text" formControlName="sensorId" placeholder="ex: sensor-001" />
+        </label>
 
-    <label>
-      Nom
-      <input type="text" formControlName="name" />
-    </label>
+        <label class="form-field">
+          <span>Nom</span>
+          <input type="text" formControlName="name" placeholder="Température cuve A" />
+        </label>
 
-    <label>
-      Topic
-      <select formControlName="topic">
-        <option value="scada/temperature">scada/temperature</option>
-        <option value="scada/humidity">scada/humidity</option>
-        <option value="scada/pressure">scada/pressure</option>
-        <option value="scada/level">scada/level</option>
-      </select>
-    </label>
+        <label class="form-field">
+          <span>Topic</span>
+          <select formControlName="topic">
+            <option value="scada/temperature">scada/temperature</option>
+            <option value="scada/humidity">scada/humidity</option>
+            <option value="scada/pressure">scada/pressure</option>
+            <option value="scada/level">scada/level</option>
+          </select>
+        </label>
 
-    <label>
-      Type
-      <input type="text" formControlName="type" />
-    </label>
+        <label class="form-field">
+          <span>Type</span>
+          <input type="text" formControlName="type" placeholder="temperature" />
+        </label>
 
-    <label>
-      Unité
-      <input type="text" formControlName="unit" />
-    </label>
+        <label class="form-field">
+          <span>Unité</span>
+          <input type="text" formControlName="unit" placeholder="°C" />
+        </label>
 
-    <label>
-      Valeur minimale
-      <input type="number" formControlName="minValue" />
-    </label>
+        <label class="form-field">
+          <span>Valeur minimale</span>
+          <input type="number" formControlName="minValue" />
+        </label>
 
-    <label>
-      Valeur maximale
-      <input type="number" formControlName="maxValue" />
-    </label>
+        <label class="form-field">
+          <span>Valeur maximale</span>
+          <input type="number" formControlName="maxValue" />
+        </label>
 
-    <label>
-      Emplacement
-      <input type="text" formControlName="location" />
-    </label>
+        <label class="form-field">
+          <span>Emplacement</span>
+          <input type="text" formControlName="location" placeholder="Salle 2 - Réservoir" />
+        </label>
 
-    <label>
-      Capteur actif
-      <input type="checkbox" formControlName="isActive" />
-    </label>
+        <label class="form-field">
+          <span>Intervalle de reporting (minutes)</span>
+          <input type="number" formControlName="reportingIntervalMinutes" />
+        </label>
+      </div>
 
-    <label>
-      Intervalle de reporting (minutes)
-      <input type="number" formControlName="reportingIntervalMinutes" />
-    </label>
+      <label class="checkbox-field">
+        <input type="checkbox" formControlName="isActive" />
+        <span>Capteur actif</span>
+      </label>
 
-    <button type="submit">Créer le capteur</button>
-  </form>
+      <button type="submit" class="primary-btn">Créer le capteur</button>
+    </form>
 
-  @if (successMessage) {
-    <p>{{ successMessage }}</p>
-  }
+    @if (successMessage) {
+      <p class="success-message">{{ successMessage }}</p>
+    }
 
-  @if (errorMessage) {
-    <p>{{ errorMessage }}</p>
-  }
-</div>
+    @if (errorMessage) {
+      <p class="error-message">{{ errorMessage }}</p>
+    }
+  </div>
+</section>

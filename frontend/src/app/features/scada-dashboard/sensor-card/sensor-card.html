@@ -1,1 +1,19 @@
-<p>sensor-card works!</p>
+<article class="sensor-card">
+  <div class="sensor-card__top">
+    <div>
+      <h2>{{ sensor.name }}</h2>
+      <p class="sensor-card__topic">{{ sensor.topic }}</p>
+    </div>
+
+    <span class="sensor-status" [class.inactive]="!sensor.isActive">
+      {{ sensor.isActive ? 'Actif' : 'Inactif' }}
+    </span>
+  </div>
+
+  <div class="sensor-meta">
+    <p><strong>ID :</strong> {{ sensor.sensorId }}</p>
+
+    <p><strong>Unité :</strong> {{ sensor.unit }}</p>
+    <p><strong>Emplacement :</strong> {{ sensor.location }}</p>
+  </div>
+</article>

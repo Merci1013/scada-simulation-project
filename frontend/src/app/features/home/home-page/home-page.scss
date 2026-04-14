@@ -1,13 +1,14 @@
 :host {
-  display: block;
+  flex: 1;
+  display: flex;
 }
 
 .home-page {
-  min-height: calc(100vh - 80px);
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1.5rem;
   background: linear-gradient(180deg, #f8fafc 0%, #e9eef5 100%);
 }
 
@@ -76,4 +77,18 @@
 .buttons a:last-child:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+  .home-card {
+    padding: 2.2rem 1.25rem;
+  }
+
+  .home-card h1 {
+    font-size: 2.2rem;
+  }
+
+  .home-card p {
+    font-size: 1rem;
+  }
 }

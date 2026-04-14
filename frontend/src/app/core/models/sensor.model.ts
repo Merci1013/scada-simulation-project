@@ -5,6 +5,7 @@ export interface Sensor {
   location?: string;
   unit?: string;
   createdAt?: string;
+  isActive: boolean;
 }
 
 export interface SensorReading {

@@ -1,1 +1,12 @@
-<p>sensor-list works!</p>
+@if (sensors.length > 0) {
+  <div class="sensor-grid">
+    @for (sensor of sensors; track sensor.sensorId) {
+      <app-sensor-card [sensor]="sensor"></app-sensor-card>
+    }
+  </div>
+} @else {
+  <div class="empty-state">
+    <h2>Aucun capteur trouvé</h2>
+    <p>Ajoutez un capteur depuis le panneau d’administration pour commencer.</p>
+  </div>
+}

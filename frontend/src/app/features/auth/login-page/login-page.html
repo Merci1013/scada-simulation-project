@@ -1,21 +1,54 @@
 <section class="login-page">
-  <h1>Connexion</h1>
-
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="username">Nom d'utilisateur</label>
-      <input id="username" type="text" formControlName="username" />
+  <div class="login-panel">
+    <div class="login-panel__top">
+      <div class="login-panel__icon">🔐</div>
+      <div>
+        <p class="login-panel__eyebrow">Accès sécurisé</p>
+        <h1>Connexion</h1>
+      </div>
     </div>
 
-    <div>
-      <label for="password">Mot de passe</label>
-      <input id="password" type="password" formControlName="password" />
+    <p class="login-panel__subtitle">
+      Connectez-vous pour accéder au dashboard SCADA et superviser vos capteurs.
+    </p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Entrez votre nom d'utilisateur"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Entrez votre mot de passe"
+        />
+      </div>
+
+      <button type="submit">Se connecter</button>
+    </form>
+
+    @if (errorMessage) {
+      <p class="error-message">{{ errorMessage }}</p>
+    }
+
+    <div class="login-divider">
+      <span></span>
+      <p>ou</p>
+      <span></span>
     </div>
 
-    <button type="submit">Se connecter</button>
-  </form>
-
-  @if (errorMessage) {
-    <p>{{ errorMessage }}</p>
-  }
+    <p class="auth-link">
+      Pas encore de compte ?
+      <a routerLink="/register">Créer un compte</a>
+    </p>
+  </div>
 </section>

@@ -1,20 +1,20 @@
 <div class="admin-page">
-  <h1>Panneau d'administration</h1>
+  <div class="admin-page__header">
+    <p class="admin-page__eyebrow">Administration</p>
+    <h1>Panneau d'administration</h1>
+    <p class="admin-page__subtitle">
+      Gérez les fonctionnalités principales du projet SCADA.
+    </p>
+  </div>
 
   <div class="admin-grid">
     <a routerLink="/admin/sensors/create" class="admin-card">
-      <!-- <h2>Capteurs</h2> -->
-      <p>Créer et configurer les capteurs</p>
+      <div class="admin-card__icon">⚙️</div>
+      <div class="admin-card__content">
+        <h2>Créer un capteur</h2>
+        <p>Ajouter et configurer de nouveaux capteurs de supervision.</p>
+      </div>
+      <span class="admin-card__arrow">→</span>
     </a>
-
-    <!-- <a routerLink="/admin/users" class="admin-card">
-      <h2>Utilisateurs</h2>
-      <p>Gérer les comptes et les rôles</p>
-    </a>
-
-    <a routerLink="/admin/realtime" class="admin-card">
-      <h2>Temps réel</h2>
-      <p>Voir les données avec WebSocket</p>
-    </a> -->
   </div>
 </div>

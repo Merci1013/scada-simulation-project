@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-
 import { Sensor } from '../../../core/models/sensor.model';
 import { SensorsService } from '../../../core/services/sensor.service';
 
