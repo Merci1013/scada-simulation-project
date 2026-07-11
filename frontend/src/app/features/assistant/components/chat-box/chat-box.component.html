@@ -1,0 +1,25 @@
+<div class="chat-box">
+  <h2>Assistant SCADA</h2>
+
+  <p>Posez une question sur les capteurs, alarmes ou mesures.</p>
+
+  <div class="chat-input">
+    <input
+      [(ngModel)]="question"
+      type="text"
+      placeholder="Ex: Montre-moi les capteurs inactifs"
+      (keydown.enter)="sendQuestion()"
+    />
+
+    <button type="button" (click)="sendQuestion()" [disabled]="isLoading">
+      {{ isLoading ? 'Analyse...' : 'Envoyer' }}
+    </button>
+  </div>
+
+  @if (answer) {
+    <div class="chat-answer">
+      <strong>Assistant :</strong>
+      <p>{{ answer }}</p>
+    </div>
+  }
+</div>

@@ -6,6 +6,7 @@ import { SensorsModule } from './sensors/sensor-module/sensor.module';
 import { SecurityModule } from './security/security-module/security.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MqttModule } from './mqtt/mqtt.module';
+import { AssistantModule } from './assistant/assistant.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { MqttModule } from './mqtt/mqtt.module';
     UsersModule,
     SensorsModule,
     SecurityModule,
-    MqttModule
+    MqttModule,
+    AssistantModule
   ],
 })
 export class AppModule {}

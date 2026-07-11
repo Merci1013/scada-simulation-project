@@ -30,6 +30,12 @@ export const routes: Routes = [
       ).then((m) => m.ScadaDashboardPage),
   },
   {
+  path: 'assistant',
+  loadComponent: () =>
+    import('./features/assistant/pages/assistant-page/assistant-page.component')
+      .then(m => m.AssistantPageComponent),
+  },
+  {
     path: 'admin',
     loadComponent: () =>
       import('./features/admin/admin-dashboard/admin-dashboard.component').then(
@@ -39,7 +45,7 @@ export const routes: Routes = [
   {
     path: 'admin/sensors/create',
     loadComponent: () =>
-      import('./features/admin/create-sensor/create-sensor').then(
+      import('./features/admin/create-sensor/create-sensor.component').then(
         (m) => m.CreateSensor,
       ),
   },

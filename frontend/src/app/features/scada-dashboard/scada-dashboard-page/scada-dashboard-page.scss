@@ -1,105 +1,75 @@
 .dashboard-page {
-  padding: 2.5rem 2rem;
-  background: linear-gradient(180deg, #f8fafc 0%, #eef4fb 100%);
+  min-height: calc(100vh - 90px);
+  padding: 3rem 2rem;
+  background: #f4f8ff;
+}
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
 }
 
 .dashboard-header {
-  max-width: 1000px;
-  margin: 0 auto 2rem;
+  margin-bottom: 2rem;
 }
 
-.dashboard-header h1 {
-  margin: 0;
-  font-size: 2.2rem;
-  color: #0f172a;
-}
-
-.dashboard-header p:last-child {
-  margin-top: 0.75rem;
-  color: #64748b;
-}
-
-.error-banner {
-  max-width: 1000px;
-  margin: 0 auto 1.5rem;
-  padding: 0.9rem 1rem;
-  border-radius: 12px;
-  background: #fef2f2;
-  color: #b91c1c;
-  border: 1px solid #fecaca;
+.eyebrow {
+  color: #315a91;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .sensor-grid {
-  max-width: 1000px;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 .sensor-card {
-  padding: 1.25rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: white;
+  border: 1px solid #dbe5f3;
   border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+  padding: 1.4rem;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
 }
 
 .sensor-card__top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
 }
 
 .sensor-card__top h2 {
-  margin: 0;
   font-size: 1.1rem;
-  color: #0f172a;
+  margin: 0;
 }
 
 .sensor-status {
-  padding: 0.35rem 0.65rem;
+  height: fit-content;
+  padding: 0.35rem 0.8rem;
   border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 700;
   background: #dcfce7;
-  color: #166534;
+  color: #15803d;
+  font-weight: 700;
 }
 
 .sensor-status.inactive {
-  background: #e2e8f0;
-  color: #475569;
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .sensor-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
+  margin-top: 1.2rem;
 }
 
 .sensor-meta p {
-  margin: 0;
-  color: #475569;
+  margin: 0.45rem 0;
+  color: #24324a;
 }
 
-.empty-state {
-  max-width: 700px;
-  margin: 2rem auto 0;
-  padding: 2rem;
-  text-align: center;
-  background: #fff;
-  border: 1px dashed #cbd5e1;
-  border-radius: 18px;
-}
-
-.empty-state h2 {
-  margin: 0 0 0.75rem;
-  color: #0f172a;
-}
-
-.empty-state p {
-  margin: 0;
-  color: #64748b;
+.assistant-sidebar {
+  position: sticky;
+  top: 2rem;
 }

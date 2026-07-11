@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SensorsService } from '../../../core/services/sensor.service';
+import { CreationSensors } from '../services/creation-sensors';
 
 @Component({
   selector: 'app-create-sensor',
@@ -12,6 +13,8 @@ import { SensorsService } from '../../../core/services/sensor.service';
 export class CreateSensor {
   private readonly fb = inject(FormBuilder);
   private readonly sensorsService = inject(SensorsService);
+  private readonly validationService = inject(CreationSensors);
+
 
   successMessage = '';
   errorMessage = '';
@@ -26,12 +29,26 @@ export class CreateSensor {
     maxValue: [30, Validators.required],
     location: [''],
     isActive: [true, Validators.required],
-    reportingIntervalMinutes: [5, [Validators.required, Validators.min(0), Validators.max(1440)]],
+    reportingIntervalMinutes: [
+      5,
+      [Validators.required, Validators.min(0), Validators.max(1440)],
+    ],
   });
 
+  isValid(): boolean {
+   if (this.sensorForm.valid) {
+    return true;
+  }
+  this.sensorForm.markAllAsTouched();
+  const errors = this.validationService.getErrors(this.sensorForm);
+  alert(`Champs manquants ou invalides : ${errors.join(', ')}`);
+  return false;
+  }
+
   onSubmit(): void {
-    if (this.sensorForm.invalid) {
-      this.sensorForm.markAllAsTouched();
+    console.log('ON SUBMIT APPELÉ');
+
+    if (!this.isValid()) {
       return;
     }
 
@@ -52,6 +69,7 @@ export class CreateSensor {
       next: () => {
         this.successMessage = 'Capteur créé avec succès';
         this.errorMessage = '';
+
         this.sensorForm.reset({
           sensorId: '',
           name: '',
